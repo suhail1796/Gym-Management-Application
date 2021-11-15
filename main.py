@@ -4,13 +4,17 @@ PREPARED BY: SUHAIL SHAIKH
 
 '''
 
+# Creating class for super user
 class super_user:
     def __init__(self):
-        self.member=dict([])
-        self.regimen=dict([])
-
+        self.member=dict([]) # To store the gym member details
+        self.regimen=dict([]) # To store the  work out regimen details
+        
+# Defining function for member creation
     def create_member(self,name,age,gender,mobile_no,email,BMI,membership_duration):
-        self.member[mobile_no]={}     #mob_no as key and we store values in it
+        
+# Super user can view the gym member details by entering mobile number, hence mobile number will be key for dictionary member
+        self.member[mobile_no]={}    
         self.member[mobile_no]["name"]=name
         self.member[mobile_no]["age"]=age
         self.member[mobile_no]["gender"]=gender
@@ -19,6 +23,7 @@ class super_user:
         self.member[mobile_no]["BMI"]=float(BMI)
         self.member[mobile_no]["membership_duration"]=int(membership_duration)
 
+# Function for viewing the gym member details. Super user can view the gym member details by choosing the option 2 'view member'      
     def view_member(self):
         for i in self.member.keys():
             print("Full Name:",self.member[mobile_no]["name"])
@@ -29,15 +34,15 @@ class super_user:
             print("BMI:",self.member[mobile_no]["BMI"])
             print("Membership Duration:",self.member[mobile_no]["membership_duration"])
 
-    #the data related to this number will be deleated
+    #For removing any gym member, we have implemented pop function, which removes the entry in dictionary.Super user can do this by choosing the option 3 'delete member'. 
     def delete_member(self,mobile_no):
         return self.member.pop(mobile_no)
     
-    #to update the membership duration of a member
+    #Function to update the gym membership. Super user can access this by entering option 4 'update membership'  
     def update_membership(self,mobile_no,membership_duration):
         self.member[mobile_no]["membership_duration"]=membership_duration
    
-
+# Function for creating a work out regimen.Super user can create the workout regimen by choosing the option 5 'create member'
     def create_regimen(self,BMI):
         self.regimen[BMI]={}
         if BMI<=18.5:
@@ -76,24 +81,29 @@ class super_user:
             self.regimen[BMI]["Sat"]="CARDIO"
             self.regimen[BMI]["Sun"]="CARDIO"
             
+# This function will return workout regimen of gym member.Super user can do this by entering option 6-'view regimen'           
     def view_regimen(self):
         return self.regimen
-
+    
+# This function will delete the workout regimen of gym member, super user can do this by entering option 7- 'delete regimen'   
     def delete_regimen(self,BMI):
         return self.regimen.pop(BMI)
 
+# Super user can update the workout regimen by changing the BMI of gym member, he can do this by choosing option 8-'update regi    
     def update_regimen(self,BMI,day,value):
         self.regimen[BMI][day]=value
 
-    
+# Creating class for gym member   
 class User():
     def __init__(self,member,regimen,phone):
         self.user_profile=member[phone]
         self.user_regimen=regimen
 
+# Function to view the user profile.This function will return user details when he/she will choose option 1-'view user profile'        
     def view_user_profile(self):
         return self.user_profile
 
+# This function will return the corresponding workout regimen when gym member will choose option 2-'view user regimen'   
     def view_user_regimen(self):
         return self.user_regimen[self.user_profile["BMI"]]
 
@@ -174,6 +184,7 @@ while (opt==True):
             phone=int(input("please Enter the user mobile number:"))
             B=User(S.member,S.regimen,phone)
             password=input("enter password (Hint:Your full Name):")
+            # Gym member should enter his first name as password
             if password == S.member[ phone]["name"]:
                 print("Congratulations You are logged in as User")
                 while(user1==True):
@@ -189,6 +200,7 @@ while (opt==True):
                             print(B.view_user_profile())
                         except:
                             print("User profile not present")
+                    # User/Gym member can update his membership by choosing option-3 'Update Profile'        
                     elif val==3:
                         membership_duration=int(input("Enter the duration upto which you want extenxion:"))
                         try:
@@ -197,6 +209,7 @@ while (opt==True):
                             user1=input()=="Y"
                         except:
                             print("Invalid User Details enter again")
+                    # User will be logged off after entering the option 4-Log Out
                     elif val==4:
                         break
                 
